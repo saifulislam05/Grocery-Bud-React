@@ -24,7 +24,7 @@ function App() {
       ...groceryItems,
     ];
     updateGroceryItems(updatedItems);
-    toast.success("Item Added Successfully !", {
+    toast.success("Item Added Successfully!", {
       position: "top-center",
       autoClose: 3000,
       hideProgressBar: false,
@@ -51,6 +51,36 @@ function App() {
     });
   };
 
+  const handleClearCompleted = () => {
+    const storedItems = JSON.parse(localStorage.getItem("groceryItems"));
+    const completedItems = storedItems.filter((item) => item.checked);
+    if (completedItems.length > 0) {
+      const updatedItems = storedItems.filter((item) => !item.checked);
+      updateGroceryItems(updatedItems);
+      toast.error("All completed items deleted", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      toast.warning("No completed items to clear", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  };
+
   return (
     <>
       <ToastContainer
@@ -71,6 +101,7 @@ function App() {
           <GroceryList
             groceryItems={groceryItems}
             onDeleteItem={handleDeleteItem}
+            clearCompleted={handleClearCompleted}
           />
         </div>
       </div>
