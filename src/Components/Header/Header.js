@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+
 
 function Header({ onAddItem }) {
   const [newItem, setNewItem] = useState('');
@@ -11,6 +13,18 @@ function Header({ onAddItem }) {
     if (newItem) {
       onAddItem(newItem);
       setNewItem("");
+    }
+    else {
+      toast.warn("please write any gorcery name.", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
   return (
